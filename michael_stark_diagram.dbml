@@ -7,6 +7,7 @@ Table user {
 
 Table user_interactions {
     id int [pk]
+    is_watched bool
 }
 
 Table films {
@@ -35,25 +36,21 @@ Table director {
 }
 
 Table film_actors{
-    id int [pk]
     actor_id int [not null] //FK
     films_id int [not null] //FK
 }
 
 Table tv_actors{
-    id int [pk]
     actor_id int [not null] //FK
     tv_show_id int [not null] //FK
 }
 
 Table film_directors{
-    id int [pk]
     director_id int [not null] //FK
     films_id int [not null] //FK
 }
 
 Table tv_directors{
-    id int [pk]
     director_id int [not null] //FK
     tv_show_id int [not null] //FK
 }
