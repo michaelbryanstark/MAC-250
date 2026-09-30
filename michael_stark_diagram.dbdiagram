@@ -1,0 +1,197 @@
+{
+  "version": "3.0.0",
+  "darkMode": true,
+  "gridEnabling": false,
+  "currentViewName": null,
+  "defaultView": {
+    "detailLevel": "All",
+    "relationshipMode": "All",
+    "tablePositions": [
+      {
+        "name": "user",
+        "schemaName": "public",
+        "x": 8.453015427769998,
+        "y": -8.099579242636743
+      },
+      {
+        "name": "user_interactions",
+        "schemaName": "public",
+        "x": 222.47014499145337,
+        "y": 46.287517531556816
+      },
+      {
+        "name": "films",
+        "schemaName": "public",
+        "x": 12,
+        "y": 194
+      },
+      {
+        "name": "tv_show",
+        "schemaName": "public",
+        "x": 12,
+        "y": 510
+      },
+      {
+        "name": "actor",
+        "schemaName": "public",
+        "x": 12,
+        "y": 336
+      },
+      {
+        "name": "director",
+        "schemaName": "public",
+        "x": 12,
+        "y": 652
+      },
+      {
+        "name": "film_actors",
+        "schemaName": "public",
+        "x": 482.689453125,
+        "y": 194
+      },
+      {
+        "name": "tv_actors",
+        "schemaName": "public",
+        "x": 482.689453125,
+        "y": 368
+      },
+      {
+        "name": "film_directors",
+        "schemaName": "public",
+        "x": 482.689453125,
+        "y": 542
+      },
+      {
+        "name": "tv_directors",
+        "schemaName": "public",
+        "x": 482.689453125,
+        "y": 716
+      }
+    ],
+    "tableGroupCollapseStates": [],
+    "stickyNoteLayouts": [],
+    "referencePaths": [
+      {
+        "firstFieldNames": [
+          "actor_id"
+        ],
+        "firstTableName": "film_actors",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "actor",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "actor_id"
+        ],
+        "firstTableName": "tv_actors",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "actor",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "director_id"
+        ],
+        "firstTableName": "film_directors",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "director",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "director_id"
+        ],
+        "firstTableName": "tv_directors",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "director",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "films_id"
+        ],
+        "firstTableName": "film_actors",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "films",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "films_id"
+        ],
+        "firstTableName": "film_directors",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "films",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "tv_show_id"
+        ],
+        "firstTableName": "tv_actors",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "tv_show",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "tv_show_id"
+        ],
+        "firstTableName": "tv_directors",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "tv_show",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      }
+    ]
+  },
+  "views": {}
+}
