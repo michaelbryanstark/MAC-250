@@ -1,14 +1,41 @@
-Table User {
-    id int [pk]
-    first_name varchar
-    last_name varchar
+
+Table user_Account{
+    account_id int [pk]
+    email varchar [not null]
+    password varchar [not null]
+    phone_number varchar
+    subscription_id int [ref: > subscription.subscription_id]
     account_created Date
 }
 
-Table User_interactions {
-    id int [pk]
+Table subscription{
+    subscription_id int [pk]
+    subscription_type varchar [not null]
+    subscription_price decimal [not null]
+    subscription_duration int [not null]
 }
 
+Table profile{
+    account_id int [ref: > user_Account.account_id]
+    profile_id int [pk]
+    profile_name varchar [not null]
+    profile_picture varchar
+    is_kid_profile boolean [not null]
+}
+
+Table is_watched{
+    profile_id int [ref: > profile.profile_id]
+    is_watched boolean [not null]
+    film_id int [not null, Ref: > Film.id]
+    tv_show_id int [not null, Ref: > Tv_show.id]
+}
+
+Table is_liked{
+    profile_id int [ref: > profile.profile_id]
+    is_liked boolean [not null]
+    film_id int [not null, Ref: > Film.id]
+    tv_show_id int [not null, Ref: > Tv_show.id]
+}
 
 Table Film {
     id int [pk]
