@@ -19,13 +19,13 @@ CREATE TABLE profile (
     profile_id INT PRIMARY KEY,
     profile_name VARCHAR(255),
     profile_picture VARCHAR(255),
-    is_kid_profile boolean not null,
+    is_kid_profile BOOLEAN NOT NULL,
     FOREIGN KEY (account_id) REFERENCES account (id)
 );
 
 CREATE TABLE watched (
     profile_id INT,
-    is_watched boolean not null,
+    is_watched BOOLEAN NOT NULL,
     film_id INT,
     tv_show_id INT,
     FOREIGN KEY (profile_id) REFERENCES profile (id),
@@ -35,7 +35,7 @@ CREATE TABLE watched (
 
 CREATE TABLE liked (
     profile_id INT,
-    is_liked boolean not null,
+    is_liked BOOLEAN NOT NULL,
     film_id INT,
     tv_show_id INT,
     FOREIGN KEY (profile_id) REFERENCES profile (id),
