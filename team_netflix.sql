@@ -15,7 +15,7 @@ CREATE TABLE subscription (
 );
 
 CREATE TABLE profile (
-    id INT,
+    account_id INT,
     profile_id INT PRIMARY KEY,
     profile_name VARCHAR(255),
     profile_picture VARCHAR(255),
