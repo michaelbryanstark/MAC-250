@@ -88,7 +88,7 @@ CREATE TABLE tv_actors (
 
 CREATE TABLE film_directors (
     director_id INT,
-    films_id INT,
+    film_id INT,
     FOREIGN KEY (director_id) REFERENCES director (id),
     FOREIGN KEY (film_id) REFERENCES film (id)
 );
