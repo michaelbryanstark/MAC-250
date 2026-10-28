@@ -43,7 +43,7 @@ CREATE TABLE liked (
     tv_show_id INT,
     FOREIGN KEY (account_id) REFERENCES account (id),
     FOREIGN KEY (film_id) REFERENCES film (id),
-    FOREIGN KEY (tv_show_id) REFERENCES tv_show (id),
+    FOREIGN KEY (tv_show_id) REFERENCES tv_show (id)
 );
 
 CREATE TABLE film (
@@ -76,26 +76,26 @@ CREATE TABLE film_actors (
     actor_id INT,
     film_id INT,
     FOREIGN KEY (actor_id) REFERENCES actor (id),
-    FOREIGN KEY (film_id) REFERENCES film (id),
+    FOREIGN KEY (film_id) REFERENCES film (id)
 );
 
 CREATE TABLE tv_actors (
     actor_id INT,
     tv_show_id INT,
     FOREIGN KEY (actor_id) REFERENCES actor (id),
-    FOREIGN KEY (tv_show_id) REFERENCES tv_show (id),
+    FOREIGN KEY (tv_show_id) REFERENCES tv_show (id)
 );
 
 CREATE TABLE film_directors (
     director_id INT,
     films_id INT,
     FOREIGN KEY (director_id) REFERENCES director (id),
-    FOREIGN KEY (film_id) REFERENCES film (id),
+    FOREIGN KEY (film_id) REFERENCES film (id)
 );
 
 CREATE TABLE tv_directors (
     director_id INT,
     tv_show_id INT,
     FOREIGN KEY (director_id) REFERENCES director (id),
-    FOREIGN KEY (tv_show_id) REFERENCES tv_show (id),
+    FOREIGN KEY (tv_show_id) REFERENCES tv_show (id)
 );
