@@ -4,9 +4,9 @@ CREATE TABLE account (
     password VARCHAR(64),
     phone_number VARCHAR(255),
     subscription_id INT,
-    profile_name VARCHAR(255),
-    profile_picture VARCHAR(255),
-    is_kid_profile BOOLEAN NOT NULL,
+    -- profile_name VARCHAR(255),
+    -- profile_picture VARCHAR(255),
+    -- is_kid_profile BOOLEAN NOT NULL,
     account_created DATETIME 
 );
 
@@ -17,14 +17,14 @@ CREATE TABLE subscription (
     subscription_duration INT not null
 );
 
--- CREATE TABLE profile (
---     account_id INT,
---     profile_id INT PRIMARY KEY,
---     profile_name VARCHAR(255),
---     profile_picture VARCHAR(255),
---     is_kid_profile BOOLEAN NOT NULL,
---     FOREIGN KEY (account_id) REFERENCES account (id)
--- );
+CREATE TABLE profile (
+    account_id INT,
+    profile_id INT PRIMARY KEY,
+    profile_name VARCHAR(255),
+    profile_picture VARCHAR(255),
+    is_kid_profile BOOLEAN NOT NULL,
+    FOREIGN KEY (account_id) REFERENCES account (id)
+);
 
 CREATE TABLE watched (
     account_id INT,

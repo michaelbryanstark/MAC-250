@@ -15,7 +15,7 @@ from flask import (Flask, abort, flash, g, redirect, render_template_string,
 from werkzeug.security import generate_password_hash
 
 # Change this to your database filename (kept next to this script)
-DB_PATH = Path(__file__).parent / "netflix.db"
+DB_PATH = Path(__file__).parent / "team_netflix.db"
 
 app = Flask(__name__)
 app.secret_key = "change-me"
