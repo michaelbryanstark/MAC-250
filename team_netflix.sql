@@ -7,7 +7,7 @@ CREATE TABLE account (
     -- profile_name VARCHAR(255),
     -- profile_picture VARCHAR(255),
     -- is_kid_profile BOOLEAN NOT NULL,
-    account_created DATETIME 
+    account_created DATETIME
 );
 
 CREATE TABLE subscription (
@@ -24,6 +24,20 @@ CREATE TABLE profile (
     profile_picture VARCHAR(255),
     is_kid_profile BOOLEAN NOT NULL,
     FOREIGN KEY (account_id) REFERENCES account (id)
+);
+
+CREATE TABLE film (
+    id INT PRIMARY KEY,
+    title VARCHAR(255),
+    duration INT,
+    genre VARCHAR(255)
+);
+
+CREATE TABLE tv_show (
+    id INT PRIMARY KEY,
+    title VARCHAR(255),
+    duration INT,
+    genre VARCHAR(255)
 );
 
 CREATE TABLE watched (
@@ -44,20 +58,6 @@ CREATE TABLE liked (
     FOREIGN KEY (account_id) REFERENCES account (id),
     FOREIGN KEY (film_id) REFERENCES film (id),
     FOREIGN KEY (tv_show_id) REFERENCES tv_show (id)
-);
-
-CREATE TABLE film (
-    id INT PRIMARY KEY,
-    title VARCHAR(255),
-    duration INT,
-    genre VARCHAR(255)
-);
-
-CREATE TABLE tv_show (
-    id INT PRIMARY KEY,
-    title VARCHAR(255),
-    duration INT,
-    genre VARCHAR(255)
 );
 
 CREATE TABLE actor (
