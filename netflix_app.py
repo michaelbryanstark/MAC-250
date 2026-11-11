@@ -172,8 +172,11 @@ TEMPLATE = """
     <span class="brand">TEAM NETFLIX</span>
     <nav>
       {% for t in tables %}
-        <a href="{{ url_for('index', page=t) }}" class="{{ 'active' if t == page else '' }}">{{ t }}</a>
+        <a href="{{ url_for('index', page=t) }}"
+           class="{{ 'active' if view != 'analytics' and t == page else '' }}">{{ t }}</a>
       {% endfor %}
+      <a href="{{ url_for('analytics') }}"
+         class="{{ 'active' if view == 'analytics' else '' }}">Analytics</a>
     </nav>
   </div>
 </header>
@@ -182,6 +185,7 @@ TEMPLATE = """
     <div class="flash {{ 'ok' if category == 'ok' else '' }}">{{ msg }}</div>
   {% endfor %}
 
+  {% if view != 'analytics' %}
   <div class="card">
     <h2>Add to {{ page }}</h2>
     <form class="add" method="post">
@@ -234,6 +238,7 @@ TEMPLATE = """
       <p class="empty">No rows yet.</p>
     {% endif %}
   </div>
+  {% endif %}
 </main>
 </body>
 </html>
@@ -307,7 +312,17 @@ def index(page):
                 cells.append(val)
         rows.append({"rowid": r["_rowid_"], "cells": cells})
 
-    return render_template_string(TEMPLATE, tables=tables, page=page, fields=fields, rows=rows)
+    return render_template_string(TEMPLATE, tables=tables, page=page, fields=fields,
+                                  rows=rows, view="table")
+
+
+@app.route("/analytics")
+def analytics():
+    # Blank for now. Note: Flask matches this before "/<page>", so a table
+    # literally named "analytics" would be hidden behind this page.
+    db = get_db()
+    return render_template_string(TEMPLATE, tables=get_tables(db), page="Analytics",
+                                  view="analytics")
 
 
 @app.route("/<page>/delete/<int:rowid>", methods=["POST"])
