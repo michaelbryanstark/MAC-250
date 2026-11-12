@@ -238,6 +238,30 @@ TEMPLATE = """
       <p class="empty">No rows yet.</p>
     {% endif %}
   </div>
+    {% else %}
+  <div class="card">
+    <h2>Who watched which films ({{ rows|length }})</h2>
+    {% if rows %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Film</th><th>Account ID</th><th>Email</th></tr>
+          </thead>
+          <tbody>
+            {% for r in rows %}
+              <tr>
+                <td>{{ r.film_title }}</td>
+                <td>{{ r.account_id }}</td>
+                <td>{{ r.email }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="empty">No watch activity yet.</p>
+    {% endif %}
+  </div>
   {% endif %}
 </main>
 </body>
@@ -318,11 +342,18 @@ def index(page):
 
 @app.route("/analytics")
 def analytics():
-    # Blank for now. Note: Flask matches this before "/<page>", so a table
-    # literally named "analytics" would be hidden behind this page.
     db = get_db()
+    try:
+        rows = db.execute(
+            "SELECT account_id, email, film_title "
+            "FROM netflix_watched_user_results "
+            "ORDER BY film_title, email"
+        ).fetchall()
+    except sqlite3.Error as e:
+        flash(f"Could not load analytics: {e}")
+        rows = []
     return render_template_string(TEMPLATE, tables=get_tables(db), page="Analytics",
-                                  view="analytics")
+                                  view="analytics", rows=rows)
 
 
 @app.route("/<page>/delete/<int:rowid>", methods=["POST"])
