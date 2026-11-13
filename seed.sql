@@ -1,4 +1,3 @@
-CREATE DATABASE IF NOT EXISTS team_netflix;
 USE team_netflix;
 
 SOURCE team_netflix.sql;

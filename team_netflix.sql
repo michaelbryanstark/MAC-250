@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS team_netflix;
+
+USE team_netflix;
+
 CREATE TABLE account (
     id INT PRIMARY KEY,
     email VARCHAR(255),
