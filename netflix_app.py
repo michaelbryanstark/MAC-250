@@ -635,7 +635,7 @@ def delete(page, rowid):
     return redirect(url_for("index", page=page))
 
 
-# ---------- Query 01: Profiles per Subscriber ----------
+# ---------- Profiles per Subscriber ----------
 
 @app.route("/profiles_per_subscriber")
 def profiles_per_subscriber():
