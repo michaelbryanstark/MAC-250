@@ -308,6 +308,29 @@ TEMPLATE = """
       <p class="empty">No subscribers yet.</p>
     {% endif %}
   </div>
+    <div class="card">
+    <h2>Most liked titles ({{ liked_rows|length }})</h2>
+    {% if liked_rows %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Title</th><th>Type</th><th>Likes</th></tr>
+          </thead>
+          <tbody>
+            {% for r in liked_rows %}
+              <tr>
+                <td>{{ r.title }}</td>
+                <td>{{ r.type }}</td>
+                <td>{{ r.likes }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="empty">No likes yet.</p>
+    {% endif %}
+  </div>
   {% endif %}
 </main>
 </body>
@@ -427,9 +450,18 @@ def analytics():
     except sqlite3.Error as e:
         flash(f"Could not load profiles per subscriber: {e}")
         profile_rows = []
+    try:
+        liked_rows = db.execute(
+            "SELECT title, type, likes "
+            "FROM netflix_most_liked_results "
+            "ORDER BY likes DESC, title"
+        ).fetchall()
+    except sqlite3.Error as e:
+        flash(f"Could not load most liked titles: {e}")
+        liked_rows = []
     return render_template_string(TEMPLATE, tables=get_tables(db), page="Analytics",
                                   view="analytics", rows=rows, tv_rows=tv_rows,
-                                  profile_rows=profile_rows)
+                                  profile_rows=profile_rows, liked_rows=liked_rows)
 
 
 @app.route("/<page>/delete/<int:rowid>", methods=["POST"])
