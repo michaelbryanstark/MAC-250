@@ -330,7 +330,7 @@ TEMPLATE = """
       <p class="empty">No subscribers yet.</p>
     {% endif %}
   </div>
-  <div class="card">
+    <div class="card">
     <h2>Most liked titles ({{ liked_rows|length }})</h2>
     {% if liked_rows %}
       <div class="table-wrap">
