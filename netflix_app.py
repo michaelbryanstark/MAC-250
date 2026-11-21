@@ -7,21 +7,26 @@ Setup:
     python netflix_app.py
 Then open http://127.0.0.1:5000
 """
+import os
 import sqlite3
 from pathlib import Path
 
 from flask import (Flask, abort, flash, g, redirect, render_template_string,
-                   request, url_for)
+                   request, session, url_for)
 from werkzeug.security import generate_password_hash
 
-# Change this to your database filename (kept next to this script)
-DB_PATH = Path(__file__).parent / "team_netflix.db"
+# Change this to your database filename
+DB_PATH = Path(os.environ.get("NETFLIX_DB",
+                              Path(__file__).parent / "team_netflix.db"))
 
 app = Flask(__name__)
-app.secret_key = "change-me"
+# Must match the secret key in netflix_user_app.py so the login session is shared
+app.secret_key = os.environ.get("SECRET_KEY", "change-me")
+# Where non-admins are sent. netflix_user_app.py sets this to "/" when it mounts this app.
+app.config["LOGIN_URL"] = os.environ.get("LOGIN_URL", "http://127.0.0.1:5001/")
 
 
-# ---------- DB functions ----------
+# ---------- database helpers ----------
 def get_db():
     if "db" not in g:
         g.db = sqlite3.connect(DB_PATH)
@@ -34,6 +39,22 @@ def close_db(_exc=None):
     db = g.pop("db", None)
     if db is not None:
         db.close()
+
+
+@app.before_request
+def require_admin():
+    """Only logged-in accounts with is_admin = 1 may use this app."""
+    account_id = session.get("account_id")
+    row = None
+    if account_id is not None:
+        try:
+            row = get_db().execute(
+                "SELECT is_admin FROM account WHERE id = ?", (account_id,)).fetchone()
+        except sqlite3.Error:  # is_admin column not created yet
+            row = None
+    if row is None or not row["is_admin"]:
+        flash("Admin access only. Please sign in with an admin account.")
+        return redirect(app.config["LOGIN_URL"])
 
 
 def get_tables(db):
@@ -119,7 +140,7 @@ def describe(db, table):
     return {"table": table, "auto_pk": auto_pk, "fields": fields}
 
 
-# ---------- HTML ----------
+# ---------- template ----------
 TEMPLATE = """
 <!doctype html>
 <html lang="en">
@@ -177,6 +198,7 @@ TEMPLATE = """
       {% endfor %}
       <a href="{{ url_for('analytics') }}"
          class="{{ 'active' if view == 'analytics' else '' }}">Analytics</a>
+      <a href="{{ config.LOGIN_URL }}" style="margin-left:auto">&larr; Back to site</a>
     </nav>
   </div>
 </header>
@@ -222,7 +244,7 @@ TEMPLATE = """
           <tbody>
             {% for row in rows %}
               <tr>
-                {% for cell in row.cells %}<td>{{ cell }}</td>{% endfor %}
+                {% for cell in row.cells %}<td>{% if cell is string and cell.startswith('https://image.tmdb.org') %}<img src="{{ cell }}" height="60" alt="poster">{% else %}{{ cell }}{% endif %}</td>{% endfor %}
                 <td>
                   <form method="post" action="{{ url_for('delete', page=page, rowid=row.rowid) }}"
                         onsubmit="return confirm('Delete this row?')">
@@ -308,6 +330,29 @@ TEMPLATE = """
       <p class="empty">No subscribers yet.</p>
     {% endif %}
   </div>
+  <div class="card">
+    <h2>Most liked titles ({{ liked_rows|length }})</h2>
+    {% if liked_rows %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Title</th><th>Type</th><th>Likes</th></tr>
+          </thead>
+          <tbody>
+            {% for r in liked_rows %}
+              <tr>
+                <td>{{ r.title }}</td>
+                <td>{{ r.type }}</td>
+                <td>{{ r.likes }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="empty">No likes yet.</p>
+    {% endif %}
+  </div>
   {% endif %}
 </main>
 </body>
@@ -337,7 +382,7 @@ def index(page):
             raw = request.form.get(f["name"], "").strip()
             if raw:
                 if f["name"] == "password":
-                    raw = generate_password_hash(raw)
+                    raw = generate_password_hash(raw, method="pbkdf2:sha256")
                 values[f["name"]] = raw.replace(
                     "T", " ") if f["input"] == "datetime-local" else raw
 
@@ -427,9 +472,18 @@ def analytics():
     except sqlite3.Error as e:
         flash(f"Could not load profiles per subscriber: {e}")
         profile_rows = []
+    try:
+        liked_rows = db.execute(
+            "SELECT title, type, likes "
+            "FROM netflix_most_liked_results "
+            "ORDER BY likes DESC, title"
+        ).fetchall()
+    except sqlite3.Error as e:
+        flash(f"Could not load most liked titles: {e}")
+        liked_rows = []
     return render_template_string(TEMPLATE, tables=get_tables(db), page="Analytics",
                                   view="analytics", rows=rows, tv_rows=tv_rows,
-                                  profile_rows=profile_rows)
+                                  profile_rows=profile_rows, liked_rows=liked_rows)
 
 
 @app.route("/<page>/delete/<int:rowid>", methods=["POST"])
