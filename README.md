@@ -20,3 +20,6 @@
 * Max Owusu
 * Schavitt Urena
 * Michael Stark
+
+> [!WARNING]  
+> To access admin panel an admin account must be made by running the command python3 netflix_user_app.py make-admin someone@example.com.
