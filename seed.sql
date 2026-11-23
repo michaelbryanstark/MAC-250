@@ -13,7 +13,7 @@ VALUES
 INSERT INTO account (id, email, password, phone_number, subscription_id, account_created)
 VALUES
     (101, 'emma.rivera@gmail.com',     'pass1011', '917-555-0101', 1, '2026-10-20 09:15:00'),
-    (102, 'michael.starkb@gmail.com',  '0000',     '917-854-4008', 1, '2026-10-28 10:30:00'),
+    (102, 'michaeljohnson@gmail.com',  '0000',     '917-555-4008', 1, '2026-10-28 10:30:00'),
     (103, 'john.doe@gmail.com',        '1234534368','999-888-9988', 2, '2026-10-28 11:45:00'),
     (104, 'sarah.chen@gmail.com',      'pass1044', '212-555-0104', 2, '2026-10-29 08:05:00'),
     (105, 'david.okafor@gmail.com',    'pass1055', '646-555-0105', 1, '2026-10-29 14:20:00'),
