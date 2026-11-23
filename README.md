@@ -1,7 +1,7 @@
 # TEAM NETFLIX
 ### We created this app to highlight what we have learned about database structure this semester and how to implement it in an app that everyone is very familiar with!
 
-    python3 netflix_app.py          # then open http://127.0.0.1:5000
+    python3 netflix_app.py          # then open http://127.0.0.1:5001
 
 
 
