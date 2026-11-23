@@ -14,95 +14,18 @@ VALUES (1, 'premium', 20.00, 1),
     (2, 'basic', 10.00, 1);
 
 -- Accounts
-INSERT INTO
-    account (
-        id,
-        email,
-        password,
-        phone_number,
-        subscription_id,
-        account_created
-    )
-VALUES (
-        101,
-        'emma.rivera@gmail.com',
-        'pass1011',
-        '917-555-0101',
-        1,
-        '2026-10-20 09:15:00'
-    ),
-    (
-        102,
-        'michael.starkb@gmail.com',
-        '0000',
-        '917-854-4008',
-        1,
-        '2026-10-28 10:30:00'
-    ),
-    (
-        103,
-        'john.doe@gmail.com',
-        '1234534368',
-        '999-888-9988',
-        2,
-        '2026-10-28 11:45:00'
-    ),
-    (
-        104,
-        'sarah.chen@gmail.com',
-        'pass1044',
-        '212-555-0104',
-        2,
-        '2026-10-29 08:05:00'
-    ),
-    (
-        105,
-        'david.okafor@gmail.com',
-        'pass1055',
-        '646-555-0105',
-        1,
-        '2026-10-29 14:20:00'
-    ),
-    (
-        106,
-        'lily.nguyen@gmail.com',
-        'pass1066',
-        '718-555-0106',
-        2,
-        '2026-10-30 16:40:00'
-    ),
-    (
-        107,
-        'carlos.mendez@gmail.com',
-        'pass1077',
-        '347-555-0107',
-        1,
-        '2026-10-30 19:10:00'
-    ),
-    (
-        108,
-        'aisha.khan@gmail.com',
-        'pass1088',
-        '929-555-0108',
-        2,
-        '2026-10-31 12:00:00'
-    ),
-    (
-        109,
-        'tom.baker@gmail.com',
-        'pass1099',
-        '917-555-0109',
-        1,
-        '2026-11-01 07:50:00'
-    ),
-    (
-        110,
-        'priya.patel@gmail.com',
-        'pass1100',
-        '212-555-0110',
-        2,
-        '2026-11-02 21:25:00'
-    );
+INSERT INTO account (id, email, password, phone_number, subscription_id, account_created)
+VALUES
+    (101, 'emma.rivera@gmail.com',     'pass1011', '917-555-0101', 1, '2026-10-20 09:15:00'),
+    (102, 'michaeljohnson@gmail.com',  '0000',     '917-555-4008', 1, '2026-10-28 10:30:00'),
+    (103, 'john.doe@gmail.com',        '1234534368','999-888-9988', 2, '2026-10-28 11:45:00'),
+    (104, 'sarah.chen@gmail.com',      'pass1044', '212-555-0104', 2, '2026-10-29 08:05:00'),
+    (105, 'david.okafor@gmail.com',    'pass1055', '646-555-0105', 1, '2026-10-29 14:20:00'),
+    (106, 'lily.nguyen@gmail.com',     'pass1066', '718-555-0106', 2, '2026-10-30 16:40:00'),
+    (107, 'carlos.mendez@gmail.com',   'pass1077', '347-555-0107', 1, '2026-10-30 19:10:00'),
+    (108, 'aisha.khan@gmail.com',      'pass1088', '929-555-0108', 2, '2026-10-31 12:00:00'),
+    (109, 'tom.baker@gmail.com',       'pass1099', '917-555-0109', 1, '2026-11-01 07:50:00'),
+    (110, 'priya.patel@gmail.com',     'pass1100', '212-555-0110', 2, '2026-11-02 21:25:00');
 
 -- Profiles
 INSERT INTO
@@ -394,5 +317,5 @@ VALUES (101, TRUE, 1, NULL),
     (104, TRUE, NULL, 4),
     (105, TRUE, 9, NULL),
     (106, FALSE, NULL, 3),
-    (107, TRUE, 5, NULL),
-    (108, TRUE, NULL, 8);
+    (107, TRUE,  5,    NULL),
+    (108, TRUE,  NULL, 8);
